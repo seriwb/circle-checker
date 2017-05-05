@@ -1,0 +1,90 @@
+plugins {
+    id 'jacoco'
+    id 'com.github.kt3k.coveralls' version '2.8.1'
+}
+
+apply plugin: 'groovy'
+apply plugin: 'eclipse'
+//apply plugin: 'application'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+version = '0.0.1'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile ('org.codehaus.groovy:groovy-all:2.4.7') {transitive = false}
+	compile ('org.twitter4j:twitter4j-core:[4.0,)') {transitive = false}
+	compile ('org.codehaus.groovy.modules.http-builder:http-builder:0.7.1') {transitive = false}
+	compile ('org.apache.logging.log4j:log4j-core:2.8.1') {transitive = false}
+	compile ('org.apache.logging.log4j:log4j-api:2.8.1') {transitive = false}
+	compile ('org.apache.logging.log4j:log4j-slf4j-impl:2.8.1') {transitive = false}
+	compile ('org.slf4j:slf4j-api:1.7.24') {transitive = false}
+	compile ('com.fasterxml.jackson.core:jackson-core:[2.4,)') {transitive = false}
+	compile ('com.fasterxml.jackson.core:jackson-databind:[2.4,)') {transitive = false}
+	compile ('com.fasterxml.jackson.core:jackson-annotations:[2.4,)') {transitive = false}
+	compile ('com.h2database:h2:1.4.180') {transitive = false}
+
+	testImplementation 'org.spockframework:spock-core:1.0-groovy-2.4'
+//	testImplementation 'junit:junit:4.12'
+}
+
+def defaultEncoding = 'UTF-8'
+tasks.withType(AbstractCompile) each { it.options.encoding = defaultEncoding }
+tasks.withType(GroovyCompile) each { it.groovyOptions.encoding = defaultEncoding }
+
+
+compileJava {
+	// twitter4j.propertiesを使って使用するconsumer keysを設定する
+	def prop = new Properties()
+	prop.load(new FileInputStream("$projectDir/twitter4j.properties"))
+	def config = new ConfigSlurper().parse(prop)
+	
+	// バイトデータでキー情報を保持
+	Map <String, String> keymap = new HashMap<>()
+	keymap.put("consumerKey", config.oauth.consumerKey)
+	keymap.put("consumerSecret", config.oauth.consumerSecret)
+
+	File keydataPath = new File("$projectDir/src/main/resources/box/white/circle-checker")
+	if (!keydataPath.exists()) {
+		keydataPath.mkdirs()
+	}
+	File keydata = new File(keydataPath, "key.data")
+	if (!keydata.exists()) {
+		keydata.createNewFile()
+	}
+
+	ByteArrayOutputStream baos = new ByteArrayOutputStream()
+	ObjectOutputStream oos = new ObjectOutputStream(baos)
+	oos.writeObject(keymap)
+	keydata.write(baos.toByteArray().encodeBase64().toString())
+}
+
+// fat jar用の設定
+jar {
+	from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+	manifest {
+		attributes (
+			'Implementation-Title': 'circle-checker',
+			'Implementation-Version': version,
+			'Main-Class' : 'box.white.cc.Main'
+		)
+	}
+}
+
+//run {
+//	standardInput = System.in
+//}
+//
+//mainClassName = 'box.white.cc.Main'
+
+jacocoTestReport {
+	reports {
+		xml.enabled true // coveralls plugin depends on xml format report
+		html.enabled true
+		html.destination "${buildDir}/jacocoHtml"
+	}
+}
+jacocoTestReport.dependsOn test
