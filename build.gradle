@@ -47,7 +47,7 @@ compileJava {
 	keymap.put("consumerKey", config.oauth.consumerKey)
 	keymap.put("consumerSecret", config.oauth.consumerSecret)
 
-	File keydataPath = new File("$projectDir/src/main/resources/box/white/circle-checker")
+	File keydataPath = new File("$projectDir/src/main/resources/box/white/cc")
 	if (!keydataPath.exists()) {
 		keydataPath.mkdirs()
 	}

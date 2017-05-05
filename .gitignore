@@ -4,6 +4,8 @@ build/
 .classpath
 .project
 /.settings
+/log
+/db
 
 # Ignore Gradle GUI config
 gradle-app.setting
