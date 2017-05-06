@@ -145,7 +145,7 @@ class CircleChecker {
 			if (screenName =~ /.*$it.*/) {
 				result.twitterName = screenName
 				result.twitterId = user.getScreenName()
-				result.twitterUrl= user.getURL()
+				result.twitterUrl = user.getURL() ?: ""
 				return result
 			}
 		}

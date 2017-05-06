@@ -28,7 +28,8 @@ dependencies {
 	compile ('com.h2database:h2:1.4.180') {transitive = false}
 
 	testImplementation 'org.spockframework:spock-core:1.0-groovy-2.4'
-//	testImplementation 'junit:junit:4.12'
+	testCompile group: 'cglib', name: 'cglib-nodep', version: '3.2.5'
+	testCompile group: 'org.objenesis', name: 'objenesis', version: '2.5.1'
 }
 
 def defaultEncoding = 'UTF-8'
