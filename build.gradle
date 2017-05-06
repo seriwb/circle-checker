@@ -8,7 +8,7 @@ apply plugin: 'eclipse'
 //apply plugin: 'application'
 
 sourceCompatibility = JavaVersion.VERSION_1_8
-version = '0.0.1'
+version = '1.0.0'
 
 repositories {
 	mavenCentral()
@@ -80,6 +80,13 @@ jar {
 //}
 //
 //mainClassName = 'box.white.cc.Main'
+
+test {
+	include '**/*Test*'
+	include '**/*Spec*'
+	exclude '**/*TestSuite*'
+	exclude '**/*SpecSuite*'
+}
 
 jacocoTestReport {
 	reports {

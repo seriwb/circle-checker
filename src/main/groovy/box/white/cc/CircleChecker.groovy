@@ -33,7 +33,7 @@ class CircleChecker {
 	/** sleepのベース時間：リスト毎は短め、チェック後は長め */
 	final int WAIT_TIME
 
-	def userinfo = null
+	User userinfo = null
 	List<String> filterList = null
 
 
@@ -154,7 +154,21 @@ class CircleChecker {
 
 	protected List<CircleInfo> checkFollow() {
 		List<CircleInfo> result = new ArrayList<>()
-		// TODO
+
+		PagableResponseList<User> users = twitter.getFriendsList(userinfo.id, -1L)
+		for (;;) {
+			for (User user : users) {
+				def circleInfo = checkUserName(user)
+				if (circleInfo.twitterName) {
+					result.add(circleInfo)
+				}
+			}
+			if (!users.hasNext()) {
+				break
+			}
+			users = twitter.getFriendsList(userinfo.id, users.getNextCursor())
+		}
+
 		result
 	}
 }

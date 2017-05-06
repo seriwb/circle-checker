@@ -15,12 +15,14 @@ Twitterのユーザ名からイベント参加情報を抽出するツールで�
 
 1. [Java SE 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html)をインストール
 2. [releases](https://github.com/seriwb/circle-checker/releases/latest)からzipファイルを取得し、適当な場所に展開
-3. config/config.txtの`cc.target.list = ""`にチェックするリスト名を入力
+3. リストを対象にする場合は、config/config.txtの`cc.target.list = ""`にチェックするリスト名を入力  
+（フォローユーザを対象にする場合は未入力のままにしておく）
 4. config/filter.txtにユーザ名に含まれる可能性のあるイベント名を列挙（デフォルトはコミティア用）
 5. コンソールからcircle-checker-X.X.X.jarがある場所まで移動し、以下のコマンドを実行  
 （X.X.Xはそのときのバージョン番号が入る）
-
-    java -jar circle-checker-X.X.X.jar
+```
+java -jar circle-checker-X.X.X.jar
+```
 
 ※Twitterアカウント情報をリセットしたい場合は、dbディレクトリを削除してください。
 
@@ -33,7 +35,6 @@ Twitterのユーザ名からイベント参加情報を抽出するツールで�
 
 ## 今後の予定
 
-- フォローユーザの名前から一覧を作成
 - HTMLの結果出力
 
 

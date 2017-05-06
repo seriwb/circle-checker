@@ -4,7 +4,7 @@ import java.util.List;
 
 import box.white.cc.model.CircleInfo
 import spock.lang.Specification
-import spock.lang.Unroll;
+import spock.lang.Unroll
 import twitter4j.User
 
 @Unroll

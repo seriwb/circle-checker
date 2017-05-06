@@ -7,6 +7,7 @@ import org.junit.runners.Suite.SuiteClasses
 @RunWith(Suite)
 @Suite.SuiteClasses([
 	CircleChecker_CheckUserNameSpec,
+	CircleChecker_CheckFollowSpec,
 ])
 
 class CircleCheckerSpecSuite {
