@@ -1,8 +1,8 @@
 package box.white.cc
 
-import box.white.cc.dao.CcMstDao
 import groovy.sql.Sql
 import groovy.util.logging.Slf4j
+import box.white.cc.dao.CcMstDao
 
 /**
  * 初期化用クラス<br>

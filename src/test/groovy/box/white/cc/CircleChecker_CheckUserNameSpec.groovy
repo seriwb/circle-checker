@@ -1,11 +1,9 @@
 package box.white.cc
 
-import java.util.List;
-
-import box.white.cc.model.CircleInfo
 import spock.lang.Specification
 import spock.lang.Unroll
 import twitter4j.User
+import box.white.cc.dto.CircleInfo
 
 @Unroll
 class CircleChecker_CheckUserNameSpec extends Specification {
