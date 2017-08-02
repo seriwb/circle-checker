@@ -8,6 +8,10 @@ build/
 /db
 .DS_Store
 
+*.iml
+/.idea
+/out
+
 # Ignore Gradle GUI config
 gradle-app.setting
 

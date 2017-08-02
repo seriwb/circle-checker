@@ -8,14 +8,14 @@ apply plugin: 'eclipse'
 //apply plugin: 'application'
 
 sourceCompatibility = JavaVersion.VERSION_1_8
-version = '1.0.0'
+version = '1.1.0'
 
 repositories {
 	mavenCentral()
 }
 
 dependencies {
-	compile ('org.codehaus.groovy:groovy-all:2.4.7') {transitive = false}
+	compile ('org.codehaus.groovy:groovy-all:2.4.12') {transitive = false}
 	compile ('org.twitter4j:twitter4j-core:[4.0,)') {transitive = false}
 	compile ('org.codehaus.groovy.modules.http-builder:http-builder:0.7.1') {transitive = false}
 	compile ('org.apache.logging.log4j:log4j-core:2.8.1') {transitive = false}
@@ -27,7 +27,7 @@ dependencies {
 	compile ('com.fasterxml.jackson.core:jackson-annotations:[2.4,)') {transitive = false}
 	compile ('com.h2database:h2:1.4.180') {transitive = false}
 
-	testImplementation 'org.spockframework:spock-core:1.0-groovy-2.4'
+	testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
 	testCompile group: 'cglib', name: 'cglib-nodep', version: '3.2.5'
 	testCompile group: 'org.objenesis', name: 'objenesis', version: '2.5.1'
 }
