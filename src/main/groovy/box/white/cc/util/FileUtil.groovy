@@ -9,8 +9,8 @@ class FileUtil {
 	 * @param path
 	 * @return
 	 */
-	static List<String> readLinesExcludeBlank(String path) {
-		List<String> lines = []
+	static LinkedHashSet<String> readLinesExcludeBlank(String path) {
+		LinkedHashSet<String> lines = []
 		new File(path).eachLine('UTF-8') {
 			if (it) {
 				lines << it
@@ -23,9 +23,9 @@ class FileUtil {
 	 * @param lines
 	 * @return
 	 */
-	static List<String> skipCommentLine(List<String> lines) {
-		List<String> skipedList = lines.collect()
-		skipedList.removeAll { it.startsWith("#") || it.startsWith("//") }
-		skipedList
+	static LinkedHashSet<String> skipCommentLine(LinkedHashSet<String> lines) {
+		LinkedHashSet<String> skippedLines = lines.collect()
+		skippedLines.removeAll { it.startsWith("#") || it.startsWith("//") }
+		skippedLines
 	}
 }

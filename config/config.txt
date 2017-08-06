@@ -2,7 +2,7 @@
 cc.target.list = ""
 
 // HTMLの保存場所
-cc.html.dir = "./dir"
+cc.html.dir = "./html"
 
 // Tweetの1回の取得数（MAX:100）
 cc.tweet.maxcount = 100

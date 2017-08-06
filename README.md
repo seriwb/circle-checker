@@ -13,12 +13,21 @@ Twitterのユーザ名からイベント参加情報を抽出するツールで�
 
 ## 使い方
 
-1. [Java SE 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html)をインストール
+### 事前準備
+
+1. [Java](https://www.java.com/ja/)か[Java SE 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html)をインストール
 2. [releases](https://github.com/seriwb/circle-checker/releases/latest)からzipファイルを取得し、適当な場所に展開
 3. リストを対象にする場合は、config/config.txtの`cc.target.list = ""`にチェックするリスト名を入力  
 （フォローユーザを対象にする場合は未入力のままにしておく）
-4. config/filter.txtにユーザ名に含まれる可能性のあるイベント名を列挙（デフォルトはコミティア用）
-5. コンソールからcircle-checker-X.X.X.jarがある場所まで移動し、以下のコマンドを実行  
+4. config/filter.txtにユーザ名に含まれる可能性のあるイベント名を列挙  
+（デフォルトはコミケ用で、イベント名指定には正規表現が利用可能です） 
+> 以下のファイルをfilter.txtにリネームすることで、特定イベントのチェックができます。
+> - filter_comike.txt : コミケ用のフィルターサンプルです
+> - filter_comitia.txt : コミティア用のフィルターサンプルです
+
+### 実行手順
+
+コンソールからcircle-checker-X.X.X.jarがある場所まで移動し、以下のコマンドを実行  
 （X.X.Xはそのときのバージョン番号が入る）
 ```
 java -jar circle-checker-X.X.X.jar
@@ -26,6 +35,20 @@ java -jar circle-checker-X.X.X.jar
 
 ※Twitterアカウント情報をリセットしたい場合は、dbディレクトリを削除してください。
 
+
+### 注意
+
+filter.txtはUTF-8形式で保存してください。  
+イベント名の指定には正規表現が利用できますが、()を使うとエラーになるため、()は使用しないようお願いします。
+
+また、実行後に以下のようなメッセージが表示された場合は、Twitterの規制にひっかかっていますので、
+15分以上待ってから再度実行してください。
+
+```
+Exception in thread "main" 429:Returned in API v1.1 when a request cannot be served due to the application's rate limit having been exhausted for the resource. See Rate Limiting in API v1.1.(https://dev.twitter.com/docs/rate-limiting/1.1)
+message - Rate limit exceeded
+code - 88
+```
 
 ### 動作環境
 
@@ -35,6 +58,7 @@ java -jar circle-checker-X.X.X.jar
 
 ## 今後の予定
 
+- アイコンと固定ツイートの取得
 - HTMLの結果出力
 - TLに流れてくるRTを対象にするオプション追加
 

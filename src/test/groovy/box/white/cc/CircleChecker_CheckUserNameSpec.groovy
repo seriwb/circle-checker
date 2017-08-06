@@ -19,7 +19,7 @@ class CircleChecker_CheckUserNameSpec extends Specification {
 
 		def file = '''
 cc.target.list = "listname"
-cc.html.dir = "./dir"
+cc.html.dir = "./html"
 cc.tweet.maxcount = 100
 cc.loop.waittime = 600
 '''
@@ -28,13 +28,19 @@ cc.loop.waittime = 600
 		def testSuite = new CircleChecker(config)
 		testSuite.filterList = filterList
 
+		def actual = testSuite.checkUserName(user)
+
 		expect:
-		testSuite.checkUserName(user) == expected
+		actual.twitterId == expected.twitterId
+		actual.twitterName == expected.twitterName
+		actual.twitterUrl == expected.twitterUrl
+		actual.matchString == expected.matchString
+		actual.spaceString == expected.spaceString
 
 		where:
 		name | screenName | url               | expected
-		"ああああ" | "aaaa" | "http://aaaa.com" | new CircleInfo("ああああ", "aaaa", "http://aaaa.com")
+		"ああああ1" | "aaaa" | "http://aaaa.com" | new CircleInfo("ああああ1", "aaaa", "http://aaaa.com", "ああ", "ああ1")
 		"いいいい" | "iiii" | "http://iiii.com" | new CircleInfo()
-		"aaiiuu" | "uuuu" | null              | new CircleInfo("aaiiuu", "uuuu", "")
+		"aaiiuu" | "uuuu" | null              | new CircleInfo("aaiiuu", "uuuu", "", "uu", "")
 	}
 }
