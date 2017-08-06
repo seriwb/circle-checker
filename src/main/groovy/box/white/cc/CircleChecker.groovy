@@ -32,7 +32,7 @@ class CircleChecker {
 	final int WAIT_TIME
 
 	User userinfo = null
-	List<String> filterList = null
+	LinkedHashSet<String> filterList = null
 
 
 	/**
@@ -66,8 +66,10 @@ class CircleChecker {
 			circleInfoList = checkFollow()
 		}
 
-		println("Twitter ID\tTwitter Name\tTwitter URL\tTwitter Link")
-		circleInfoList.each { println("$it.twitterId\t$it.twitterName\t${WebUtil.getTwitterUrl(it.twitterId)}\t$it.twitterUrl") }
+		println("Twitter ID\tTwitter Name\t一致イベント名\tスペース番号\tTwitter URL\tTwitter Link")
+		circleInfoList.each {
+			println("$it.twitterId\t$it.twitterName\t$it.matchString\t$it.spaceString\t${WebUtil.getTwitterUrl(it.twitterId)}\t$it.twitterUrl")
+		}
 	}
 
 	/**
@@ -139,12 +141,17 @@ class CircleChecker {
 		CircleInfo result = new CircleInfo()
 
 		String screenName = user.getName()
-		filterList.each {
-			if (screenName =~ /.*$it.*/) {
+		filterList.find {
+			(screenName =~ /.*($it)(.*)/).each { m0, m1, m2 ->
 				result.twitterName = screenName
 				result.twitterId = user.getScreenName()
 				result.twitterUrl = user.getURL() ?: ""
-				return
+				result.matchString = m1
+				result.spaceString = m2
+			}
+			// ループ抜け判定
+			if (result.twitterName) {
+				return true
 			}
 		}
 		result
