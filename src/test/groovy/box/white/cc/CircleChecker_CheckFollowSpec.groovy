@@ -37,7 +37,7 @@ class CircleChecker_CheckFollowSpec extends Specification {
 
 		def file = '''
 cc.target.list = ""
-cc.html.dir = "./dir"
+cc.html.dir = "./html"
 cc.tweet.maxcount = 100
 cc.loop.waittime = 600
 '''
@@ -54,7 +54,7 @@ cc.loop.waittime = 600
 
 		where:
 		name | screenName | url               | expected
-		"ああああ" | "aaaa" | "http://aaaa.com" | [new CircleInfo("ああああ", "aaaa", "http://aaaa.com")]
+		"ああああ1" | "aaaa" | "http://aaaa.com" | [new CircleInfo("ああああ1", "aaaa", "http://aaaa.com", "ああ", "ああ1")]
 		"いいいい" | "iiii" | "http://iiii.com" | []
 	}
 
@@ -84,7 +84,7 @@ cc.loop.waittime = 600
 
 		def file = '''
 cc.target.list = ""
-cc.html.dir = "./dir"
+cc.html.dir = "./html"
 cc.tweet.maxcount = 100
 cc.loop.waittime = 600
 '''
@@ -95,14 +95,20 @@ cc.loop.waittime = 600
 		testSuite.userinfo = user
 		testSuite.twitter = twitter
 
+		def actual = testSuite.checkFollow()
+
 		expect:
-		testSuite.checkFollow() == expected
+		actual.twitterId == expected.twitterId
+		actual.twitterName == expected.twitterName
+		actual.twitterUrl == expected.twitterUrl
+		actual.matchString == expected.matchString
+		actual.spaceString == expected.spaceString
 
 		where:
 		name | screenName | url               | expected
-		"ああああ" | "aaaa" | "http://aaaa.com" | [
-			new CircleInfo("ああああ", "aaaa", "http://aaaa.com"),
-			new CircleInfo("ああああ", "aaaa", "http://aaaa.com")
+		"ああああ1" | "aaaa" | "http://aaaa.com" | [
+			new CircleInfo("ああああ1", "aaaa", "http://aaaa.com", "ああ", "ああ1"),
+			new CircleInfo("ああああ1", "aaaa", "http://aaaa.com", "ああ", "ああ1")
 		]
 	}
 }

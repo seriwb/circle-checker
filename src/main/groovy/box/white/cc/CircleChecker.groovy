@@ -142,7 +142,7 @@ class CircleChecker {
 
 		String screenName = user.getName()
 		filterList.find {
-			(screenName =~ /.*($it)(.*)/).each { m0, m1, m2 ->
+			(screenName =~ /($it)(.*)/).each { m0, m1, m2 ->
 				result.twitterName = screenName
 				result.twitterId = user.getScreenName()
 				result.twitterUrl = user.getURL() ?: ""
