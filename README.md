@@ -17,13 +17,22 @@ Twitterのユーザ名からイベント参加情報を抽出するツールで�
 
 1. [Java](https://www.java.com/ja/)か[Java SE 8](http://www.oracle.com/technetwork/java/javase/downloads/index.html)をインストール
 2. [releases](https://github.com/seriwb/circle-checker/releases/latest)からzipファイルを取得し、適当な場所に展開
-3. リストを対象にする場合は、config/config.txtの`cc.target.list = ""`にチェックするリスト名を入力  
+3. リストを対象にする場合は、config/config.txtの`cc.target.list = [""]`にチェックするリスト名を入力  
 （フォローユーザを対象にする場合は未入力のままにしておく）
 4. config/filter.txtにユーザ名に含まれる可能性のあるイベント名を列挙  
 （デフォルトはコミケ用で、イベント名指定には正規表現が利用可能です） 
 > 以下のファイルをfilter.txtにリネームすることで、特定イベントのチェックができます。
-> - filter_comike.txt : コミケ用のフィルターサンプルです
+> - filter_comiket.txt : コミケ用のフィルターサンプルです
 > - filter_comitia.txt : コミティア用のフィルターサンプルです
+
+#### 設定値のサンプル
+
+```groovy
+cc.target.list = [""]                     // タイムラインの情報を取得
+cc.target.list = ["", "リスト名"]          // タイムラインと「リスト名」の情報を取得
+cc.target.list = ["リスト１", "リスト１"]   // 「リスト１」と「リスト２」の情報を取得
+```
+
 
 ### 実行手順
 
@@ -56,9 +65,17 @@ code - 88
 - JRE : 1.8 以上
 
 
+## 機能
+
+- タイムラインと複数のリストを同時にチェックすることができます
+- 固定ツイートの情報を取得できます
+- 出力結果をヘッダーと一緒にGoogle Spreadsheetsに貼り付けることで、アイコンと固定ツイートの画像が表示されます
+  - ヘッダー：`Twitter ID	Twitter Name	アイコン	一致イベント名	スペース番号	画像1	画像2	画像3	画像4	Twitter URL	Twitter Link	固定されたツイート	プロフィール画像	固定されたツイートの画像`
+
+
+
 ## 今後の予定
 
-- アイコンと固定ツイートの取得
 - HTMLの結果出力
 - TLに流れてくるRTを対象にするオプション追加
 

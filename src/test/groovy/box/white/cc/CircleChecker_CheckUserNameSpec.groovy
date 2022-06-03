@@ -16,6 +16,7 @@ class CircleChecker_CheckUserNameSpec extends Specification {
 		user.getName() >> name
 		user.getScreenName() >> screenName
 		user.getURL() >> url
+		user.getOriginalProfileImageURL() >> profileUrl
 
 		def file = '''
 cc.target.list = "listname"
@@ -36,11 +37,14 @@ cc.loop.waittime = 600
 		actual.twitterUrl == expected.twitterUrl
 		actual.matchString == expected.matchString
 		actual.spaceString == expected.spaceString
+		actual.profileImageUrl == expected.profileImageUrl
+		actual.pinnedTweetUrl == expected.pinnedTweetUrl
+		actual.pinnedImageUrls == expected.pinnedImageUrls
 
 		where:
-		name | screenName | url               | expected
-		"ああああ1" | "aaaa" | "http://aaaa.com" | new CircleInfo("ああああ1", "aaaa", "http://aaaa.com", "ああ", "ああ1")
-		"いいいい" | "iiii" | "http://iiii.com" | new CircleInfo()
-		"aaiiuu" | "uuuu" | null              | new CircleInfo("aaiiuu", "uuuu", "", "uu", "")
+		name | screenName | url               | profileUrl | pinnedUrl | imageUrls | expected
+		"ああああ1" | "aaaa" | "http://aaaa.com" | "http://profile/image.jpg" | "https://pinned/url" | ["a", "b"] | new CircleInfo("ああああ1", "aaaa", "http://aaaa.com", "ああ", "ああ1")
+		"いいいい" | "iiii" | "http://iiii.com"  | "http://profile/image.jpg" | "https://pinned/url" | ["a", "b"] | new CircleInfo()
+//		"aaiiuu" | "uuuu" | null                | new CircleInfo("aaiiuu", "uuuu", "", "uu", "")
 	}
 }
