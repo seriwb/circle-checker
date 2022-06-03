@@ -12,4 +12,7 @@ class CircleInfo {
 	String twitterUrl
 	String matchString
 	String spaceString
+	String profileImageUrl
+	String pinnedTweetUrl
+	String[] pinnedImageUrls
 }
