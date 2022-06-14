@@ -1,6 +1,9 @@
 [![CircleCI](https://circleci.com/gh/seriwb/circle-checker.svg?style=shield)](https://circleci.com/gh/seriwb/circle-checker)
 [![Coverage Status](https://coveralls.io/repos/github/seriwb/circle-checker/badge.svg)](https://coveralls.io/github/seriwb/circle-checker)
 
+**別途、作り直しました→[Circle Checker2](https://github.com/seriwb/circle-checker2)**
+
+
 # Circle Checker
 
 **「やばい！サークルチェック全然してない！」**
